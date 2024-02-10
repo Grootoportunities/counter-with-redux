@@ -2,13 +2,20 @@ import React from "react";
 import styled from "styled-components";
 
 type ButtonProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
-export const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
-  return <StyledButton onClick={onClick}>{children}</StyledButton>;
-};
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  disabled,
+}) => (
+  <StyledButton disabled={disabled} onClick={onClick}>
+    {children}
+  </StyledButton>
+);
 
 const StyledButton = styled.button`
   padding: 10px;
@@ -37,5 +44,9 @@ const StyledButton = styled.button`
   &:active {
     transform: translateY(-3px);
     transition: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 `;
