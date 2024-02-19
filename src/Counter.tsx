@@ -1,26 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { CounterPage } from "./components/pages/counterPage/CounterPage";
 import { SettingsPage } from "./components/pages/settingsPage/SettingsPage";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCountAC,
+  setMaxValueAC,
+  setMinValueAC,
+  setSettingsAC,
+} from "./redux/reducer";
+import { RootStateType } from "./redux/store";
 
 function Counter() {
-  const [settings, setSettings] = useState(false);
-  const [maxValue, setMaxValue] = useState(1);
-  const [minValue, setMinValue] = useState(0);
-  const [count, setCount] = useState(minValue);
+  const settings = useSelector<RootStateType, boolean>(
+    (state) => state.counter.settings,
+  );
+  const dispatch = useDispatch();
 
-  const setSettingsHandler = (settings: boolean) => setSettings(settings);
-  const setCountHandler = (count: number) => setCount(count);
-  const setMaxValueHandler = (maxValue: number) => setMaxValue(maxValue);
-  const setMinValueHandler = (minValue: number) => setMinValue(minValue);
+  const setCountHandler = (count: number) => dispatch(setCountAC(count));
+  const setSettingsHandler = (settings: boolean) =>
+    dispatch(setSettingsAC(settings));
+  const setMaxValueHandler = (maxValue: number) =>
+    dispatch(setMaxValueAC(maxValue));
+  const setMinValueHandler = (minValue: number) =>
+    dispatch(setMinValueAC(minValue));
 
   return (
     <StyledCounter>
       <Container>
         {settings ? (
           <SettingsPage
-            minValue={minValue}
-            maxValue={maxValue}
             setMinValue={setMinValueHandler}
             setMaxValue={setMaxValueHandler}
             setSettings={setSettingsHandler}
@@ -28,11 +37,8 @@ function Counter() {
           />
         ) : (
           <CounterPage
-            count={count}
             setCount={setCountHandler}
             setSettings={setSettingsHandler}
-            minValue={minValue}
-            maxValue={maxValue}
           />
         )}
       </Container>

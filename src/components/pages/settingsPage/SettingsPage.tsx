@@ -1,29 +1,28 @@
 import React from "react";
-import styled from "styled-components";
 import { Button } from "../../Button";
 import { Input } from "../../Input";
 import { S } from "./_styles";
+import { useSelector } from "react-redux";
+import { RootStateType } from "../../../redux/store";
+import { StateType } from "../../../redux/reducer";
 
 type SettingsPageProps = {
-  minValue: number;
-  maxValue: number;
-
   setCount: (count: number) => void;
-
   setMinValue: (minValue: number) => void;
   setMaxValue: (maxValue: number) => void;
-
   setSettings: (settings: boolean) => void;
 };
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({
   setSettings,
-  minValue,
-  maxValue,
   setMaxValue,
   setMinValue,
   setCount,
 }) => {
+  const values = useSelector<RootStateType, StateType>(
+    (state) => state.counter,
+  );
+
   const onSetClickHandler = () => setSettings(false);
   const onMinValueChangeHandler = (value: number) => {
     setMinValue(value);
@@ -31,18 +30,21 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
   };
 
   const errorMessage =
-    minValue === maxValue
+    values.minValue === values.maxValue
       ? "Values can't be equal!"
-      : minValue >= maxValue
+      : values.minValue >= values.maxValue
         ? "Min value can't be more than max value!"
-        : minValue < 0
+        : values.minValue < 0
           ? "Min value can't be negative!"
           : "";
 
-  const maxErrorCondition = minValue === maxValue || minValue >= maxValue;
+  const maxErrorCondition =
+    values.minValue === values.maxValue || values.minValue >= values.maxValue;
 
   const setDisableCondition =
-    minValue >= maxValue || minValue === maxValue || minValue < 0;
+    values.minValue >= values.maxValue ||
+    values.minValue === values.maxValue ||
+    values.minValue < 0;
 
   return (
     <S.Settings>
@@ -50,12 +52,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
         <Input
           error={maxErrorCondition}
           onChange={setMaxValue}
-          value={maxValue}
+          value={values.maxValue}
         />
         <Input
           error={errorMessage}
           onChange={onMinValueChangeHandler}
-          value={minValue}
+          value={values.minValue}
         />
         {errorMessage && <S.Error>{errorMessage}</S.Error>}
       </S.InputsWrapper>

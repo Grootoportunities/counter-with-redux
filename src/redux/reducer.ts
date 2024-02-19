@@ -1,4 +1,4 @@
-type StateType = {
+export type StateType = {
   settings: boolean;
   maxValue: number;
   minValue: number;
@@ -12,7 +12,17 @@ type SetSettingsAT = ReturnType<typeof setSettingsAC>;
 type SetMaxValueAT = ReturnType<typeof setMaxValueAC>;
 type SetMinValueAT = ReturnType<typeof setMinValueAC>;
 
-export const reducer = (state: StateType, action: ActionsType): StateType => {
+const initialState: StateType = {
+  settings: false,
+  maxValue: 1,
+  minValue: 0,
+  count: 0,
+};
+
+export const reducer = (
+  state: StateType = initialState,
+  action: ActionsType,
+): StateType => {
   switch (action.type) {
     case "SET-COUNT":
       return { ...state, count: action.value };
