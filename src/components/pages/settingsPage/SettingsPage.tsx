@@ -4,7 +4,7 @@ import { Input } from "../../Input";
 import { S } from "./_styles";
 import { useSelector } from "react-redux";
 import { RootStateType } from "../../../redux/store";
-import { StateType } from "../../../redux/reducer";
+import { CounterStateType } from "../../../redux/reducers/counterReducer";
 
 type SettingsPageProps = {
   setCount: (count: number) => void;
@@ -19,7 +19,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
   setMinValue,
   setCount,
 }) => {
-  const values = useSelector<RootStateType, StateType>(
+  const values = useSelector<RootStateType, CounterStateType>(
     (state) => state.counter,
   );
 

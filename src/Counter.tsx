@@ -7,13 +7,13 @@ import {
   setCountAC,
   setMaxValueAC,
   setMinValueAC,
-  setSettingsAC,
-} from "./redux/reducer";
+} from "./redux/reducers/counterReducer";
 import { RootStateType } from "./redux/store";
+import { setSettingsAC } from "./redux/reducers/settingsReducer";
 
 function Counter() {
-  const settings = useSelector<RootStateType, boolean>(
-    (state) => state.counter.settings,
+  const isSettings = useSelector<RootStateType, boolean>(
+    (state) => state.settings.settings,
   );
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ function Counter() {
   return (
     <StyledCounter>
       <Container>
-        {settings ? (
+        {isSettings ? (
           <SettingsPage
             setMinValue={setMinValueHandler}
             setMaxValue={setMaxValueHandler}

@@ -1,28 +1,25 @@
-export type StateType = {
-  settings: boolean;
+export type CounterStateType = {
   maxValue: number;
   minValue: number;
   count: number;
 };
 
-type ActionsType = SetSettingsAT | SetMaxValueAT | SetMinValueAT | SetCountAT;
+type ActionsType = SetMaxValueAT | SetMinValueAT | SetCountAT;
 
 type SetCountAT = ReturnType<typeof setCountAC>;
-type SetSettingsAT = ReturnType<typeof setSettingsAC>;
 type SetMaxValueAT = ReturnType<typeof setMaxValueAC>;
 type SetMinValueAT = ReturnType<typeof setMinValueAC>;
 
-const initialState: StateType = {
-  settings: false,
+const initialState: CounterStateType = {
   maxValue: 1,
   minValue: 0,
   count: 0,
 };
 
-export const reducer = (
-  state: StateType = initialState,
+export const counterReducer = (
+  state: CounterStateType = initialState,
   action: ActionsType,
-): StateType => {
+): CounterStateType => {
   switch (action.type) {
     case "SET-COUNT":
       return { ...state, count: action.value };
@@ -33,19 +30,10 @@ export const reducer = (
     case "SET-MAX-VALUE":
       return { ...state, maxValue: action.value };
 
-    case "SET-SETTINGS":
-      return { ...state, settings: action.settings };
-
     default:
       return state;
   }
 };
-
-export const setSettingsAC = (settings: boolean) =>
-  ({
-    type: "SET-SETTINGS",
-    settings,
-  }) as const;
 
 export const setMaxValueAC = (value: number) =>
   ({

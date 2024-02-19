@@ -3,7 +3,7 @@ import { Button } from "../../Button";
 import { S } from "./_styles";
 import { useSelector } from "react-redux";
 import { RootStateType } from "../../../redux/store";
-import { StateType } from "../../../redux/reducer";
+import { CounterStateType } from "../../../redux/reducers/counterReducer";
 
 type CountPageProps = {
   setCount: (count: number) => void;
@@ -14,7 +14,7 @@ export const CounterPage: React.FC<CountPageProps> = ({
   setCount,
   setSettings,
 }) => {
-  const values = useSelector<RootStateType, StateType>(
+  const values = useSelector<RootStateType, CounterStateType>(
     (state) => state.counter,
   );
 
