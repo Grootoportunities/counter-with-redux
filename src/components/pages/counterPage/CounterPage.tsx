@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "../Button";
-import styled, { css } from "styled-components";
+import { Button } from "../../Button";
+import { S } from "./_styles";
 
 type CountPageProps = {
   count: number;
@@ -27,8 +27,8 @@ export const CounterPage: React.FC<CountPageProps> = ({
   const resetDisableCondition = count === minValue;
 
   return (
-    <StyledCountPage>
-      <Count maximum={maximunValueCondition}>{count}</Count>
+    <S.CountPage>
+      <S.Count maximum={maximunValueCondition}>{count}</S.Count>
       <div>
         <Button disabled={maximunValueCondition} onClick={onIncrementClick}>
           Increment
@@ -38,34 +38,6 @@ export const CounterPage: React.FC<CountPageProps> = ({
         </Button>
         <Button onClick={onSetClick}>Set</Button>
       </div>
-    </StyledCountPage>
+    </S.CountPage>
   );
 };
-
-const Count = styled.span<{ maximum: boolean }>`
-  color: white;
-
-  text-align: center;
-
-  padding: 10px 20px;
-  background-color: #ff4275;
-  border-radius: 5px;
-
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-size: 50px;
-
-  ${(props) =>
-    props.maximum &&
-    css<{ maximum: boolean }>`
-      color: black;
-    `}
-`;
-
-const StyledCountPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-`;

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CounterPage } from "./components/pages/CounterPage";
-import { SettingsPage } from "./components/pages/SettingsPage";
+import { CounterPage } from "./components/pages/counterPage/CounterPage";
+import { SettingsPage } from "./components/pages/settingsPage/SettingsPage";
 
 function Counter() {
   const [settings, setSettings] = useState(false);
   const [maxValue, setMaxValue] = useState(1);
   const [minValue, setMinValue] = useState(0);
   const [count, setCount] = useState(minValue);
+
+  const setSettingsHandler = (settings: boolean) => setSettings(settings);
+  const setCountHandler = (count: number) => setCount(count);
+  const setMaxValueHandler = (maxValue: number) => setMaxValue(maxValue);
+  const setMinValueHandler = (minValue: number) => setMinValue(minValue);
 
   return (
     <StyledCounter>
@@ -16,16 +21,16 @@ function Counter() {
           <SettingsPage
             minValue={minValue}
             maxValue={maxValue}
-            setMinValue={setMinValue}
-            setMaxValue={setMaxValue}
-            setSettings={setSettings}
-            setCount={setCount}
+            setMinValue={setMinValueHandler}
+            setMaxValue={setMaxValueHandler}
+            setSettings={setSettingsHandler}
+            setCount={setCountHandler}
           />
         ) : (
           <CounterPage
             count={count}
-            setCount={setCount}
-            setSettings={setSettings}
+            setCount={setCountHandler}
+            setSettings={setSettingsHandler}
             minValue={minValue}
             maxValue={maxValue}
           />

@@ -1,32 +1,22 @@
 import React, { ChangeEvent } from "react";
-import styled from "styled-components";
+import { S } from "./_styles";
 
 type InputProps = {
   value: number;
-
+  error: string | boolean;
   onChange: (value: number) => void;
 };
 
-export const Input: React.FC<InputProps> = ({ value, onChange }) => {
+export const Input: React.FC<InputProps> = ({ value, onChange, error }) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
     onChange(Number(e.currentTarget.value));
 
   return (
-    <>
-      <StyledInput value={value} type={"number"} onChange={onChangeHandler} />
-      {}
-    </>
+    <S.Input
+      error={error}
+      value={value}
+      type={"number"}
+      onChange={onChangeHandler}
+    />
   );
 };
-
-const StyledInput = styled.input`
-  padding: 8px 0;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 0 3px black;
-
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 30px;
-`;
